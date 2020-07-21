@@ -1,1 +1,36 @@
-
+spring:
+  application:
+    name: geteway
+#  cloud:
+#    config:
+#      discovery:
+#        service-id: CONFIG
+#        enabled: true
+#      profile: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.56.131:8761/eureka/
+server:
+  port: 9000
+#访问路由规则没有权限，改为false
+management:
+  security:
+    enabled: false
+#自定义路由
+zuul:
+  routes:
+    # /myProduct/product/** 路由-> /product/product/**
+#    myProduct:
+#      path: /myProduct/**
+#      serverId: product
+      #敏感头过滤 不过滤cookie
+      sensitiveHeaders:
+    #简洁写法
+#    product: /myProduct/**
+  #通过正则排除某些路由,禁止访问
+  ignored-patterns:
+#    - /myProduct/product/getProductForOrder
+#    - /product/product/getProductForOrder
+    # 多个路由合并成一个路由
+    - /**/product/getProductForOrder
